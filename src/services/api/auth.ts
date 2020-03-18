@@ -21,13 +21,10 @@ export const authAndGetUser = async (
     const userCredential: UserCredential = await firebase
       .auth()
       .signInWithEmailAndPassword(email, password);
-
     return {
-      uid: userCredential.user?.uid,
-      token: await userCredential.user?.getIdToken(),
+      firebaseUser: userCredential.user,
     };
   } catch (err) {
-    console.log('err', err);
     throw Error(err.message);
   }
 };
@@ -42,8 +39,7 @@ export const createUser = async (
       .createUserWithEmailAndPassword(email, password);
 
     return {
-      uid: userCredential.user?.uid,
-      token: await userCredential.user?.getIdToken(),
+      firebaseUser: userCredential.user,
     };
   } catch (err) {
     throw Error(err.message);
@@ -60,6 +56,15 @@ export const sendPasswordResetWithMail = async (
     };
 
     await firebase.auth().sendPasswordResetEmail(email, actionCodeSettings);
+  } catch (err) {
+    throw Error(err.message);
+  }
+};
+
+export const signOut = async (
+): Promise<void> => {
+  try {
+    firebase.auth().signOut();
   } catch (err) {
     throw Error(err.message);
   }

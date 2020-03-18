@@ -1,4 +1,5 @@
+import firebase from 'firebase';
+
 export interface User {
-  uid?: string;
-  token?: string;
+  firebaseUser : firebase.User | null,
 }

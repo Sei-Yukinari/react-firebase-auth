@@ -14,8 +14,7 @@ export const initialState: AuthState = {
   loaded: false,
   isLogin: false,
   user: {
-    uid: '',
-    token: '',
+    firebaseUser: null,
   },
   errorMessage: '',
 };
